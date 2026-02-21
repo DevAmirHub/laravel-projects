@@ -12,8 +12,8 @@ class VerificationCodeService
 
     public function getCacheKey( string $contact, VerificationActionType $actionType, ContactType $contactType ): string
     {
-        $contact = hash('sha256', $contact);
-        return "verification_code_{$contactType->value}_{$contact}_{$actionType->value}";
+        $contact = hash('sha256', $contact . $contactType->value . $actionType->value);
+        return "verification_code_{$contact}";
     }
 
     public function generateCode( string $contact, VerificationActionType $actionType, ContactType $contactType, ?int $expiredAt = null ): int
